@@ -19,6 +19,11 @@
     "react-native": "^0.70"
   },
   "devDependencies": {
+    "@types/react": "^18.2.14",
+    "@types/react-native": "^0.72.2",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "react-native-vector-icons": "^9.2.0"
   }
 }
