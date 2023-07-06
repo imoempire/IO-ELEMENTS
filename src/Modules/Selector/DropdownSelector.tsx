@@ -12,10 +12,10 @@ import {
   StyleProp,
   TextStyle,
 } from "react-native";
-import { Entypo } from "@expo/vector-icons";
 import { ToggleAnimation } from "./Animation";
+import Entypo from "react-native-vector-icons/Entypo"
 
-interface Props {
+ interface Props {
   Listdata?: { name: string; value: string }[];
   title?: string;
   // Dropdown
@@ -44,7 +44,7 @@ const carddefaultStyle = {
   backgroundColor: "#FFFFFF",
 };
 
-const Dropdown: React.FC<Props> = memo(
+const DropdownSelector: React.FC<Props> = memo(
   ({
     Listdata = listData,
     title,
@@ -65,8 +65,6 @@ const Dropdown: React.FC<Props> = memo(
       fontSize: 12,
     },
   }) => {
-    // console.log(containerStyle, 'containerStyle');
-
     const { backgroundColor, width, borderColor, borderWidth } =
       containerStyle || {};
 
@@ -82,16 +80,11 @@ const Dropdown: React.FC<Props> = memo(
       borderColor && { borderColor },
     ];
 
-    // console.log( BG);
-
-    // const { backgroundColor } = dropdownContainer || {};
     const dropCardStyles = [
       backgroundColor && { backgroundColor },
       borderWidth && { borderWidth },
       borderColor && { borderColor },
     ];
-
-    console.log(dropCardStyles, "buttonStyle");
 
     const calculateContainerHeight = (dataLength: number): number => {
       const baseHeight = 200;
@@ -140,8 +133,6 @@ const Dropdown: React.FC<Props> = memo(
       }
       return "No Options";
     }, [ListDataLength, Listdata, selected]);
-
-    // console.log(renderSelected);
 
     const arrowTransform = animatedRef.interpolate({
       inputRange: [0, 1],
@@ -238,7 +229,7 @@ const Dropdown: React.FC<Props> = memo(
   }
 );
 
-export default Dropdown;
+export default DropdownSelector;
 
 const styles = StyleSheet.create({
   container: {
