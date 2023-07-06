@@ -1,3 +1,4 @@
+import React, { useRef, useState, useEffect, useMemo, memo } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,234 +7,281 @@ import {
   Animated,
   LayoutAnimation,
   FlatList,
+  ScrollView,
+  ViewStyle,
+  StyleProp,
+  TextStyle,
 } from "react-native";
-import React, { useRef, useState, useEffect } from "react";
+import { Entypo } from "@expo/vector-icons";
 import { ToggleAnimation } from "./Animation";
-// import { Entypo } from "@expo/vector-icons";
-import Entypo from 'react-native-vector-icons/Entypo';
-
-const calculateContainerHeight = (dataLength: number): number => {
-  // Define your logic to calculate the desired height based on data length
-  // For example:
-  const baseHeight = 200;
-  const heightPerItem = 30;
-  const minHeight = 200;
-
-  const calculatedHeight = baseHeight + dataLength * heightPerItem;
-  return Math.max(calculatedHeight, minHeight);
-};
 
 interface Props {
-  Listdata: { name: string; value: string }[];
-  select: string;
-  title: string;
-  onChange: React.Dispatch<React.SetStateAction<any>> | ((value: any) => void);
+  Listdata?: { name: string; value: string }[];
+  title?: string;
+  // Dropdown
+  dropdownContainer?: StyleProp<ViewStyle>;
+  dropdownTextStyle?: StyleProp<TextStyle>;
+  // Container
+  containerStyle?: StyleProp<ViewStyle>;
+  // Onchange
+  onSelect?: ((value: string) => void) | undefined;
+  // Icon
+  iconStyle?: {
+    size?: number;
+    color?: string;
+  };
 }
 
-const DropDown = ({ Listdata, select, title, onChange }: Props) => {
-  // STATES
-  const [visible, setVisible] = useState(false);
-  const animatedRef = useRef(new Animated.Value(0)).current;
-  const [ListDataLength, SetListDataLength] = useState<number>(0);
-  const [ViewDataHeight, SetViewDataHeight] = useState<number>(0);
+const listData = [
+  { name: "Option 1", value: "option1" },
+  { name: "Option 2", value: "option2" },
+  { name: "Option 3", value: "option3" },
+];
 
-  useEffect(() => {
-    let heightView = calculateContainerHeight(Listdata?.length);
-    SetListDataLength(Listdata?.length);
-    SetViewDataHeight(heightView);
-  }, [Listdata]);
+const carddefaultStyle = {
+  borderColor: "gray",
+  borderWidth: 1,
+  backgroundColor: "#FFFFFF",
+};
 
-  let List = [...(Listdata ?? {})];
+const Dropdown: React.FC<Props> = memo(
+  ({
+    Listdata = listData,
+    title,
+    onSelect,
+    dropdownContainer = carddefaultStyle,
+    iconStyle = {
+      size: 30,
+      color: "#000000",
+    },
+    containerStyle = {
+      borderRadius: 10,
+      borderWidth: 2,
+      borderColor: "red",
+      width: 200,
+    },
+    dropdownTextStyle = {
+      color: "#000000",
+      fontSize: 12,
+    },
+  }) => {
+    // console.log(containerStyle, 'containerStyle');
 
-  //   FUNCTIONS
-  const toggleDropdownAnimation = () => {
-    const config = {
-      duration: 500,
-      toValue: visible ? 0 : 1,
-      useNativeDriver: true,
+    const { backgroundColor, width, borderColor, borderWidth } =
+      containerStyle || {};
+
+    const buttonStyle = [
+      backgroundColor && { backgroundColor },
+      borderColor && { borderColor },
+      borderWidth && { borderWidth },
+    ];
+
+    const buttonContainer = [
+      backgroundColor && { backgroundColor },
+      width && { width },
+      borderColor && { borderColor },
+    ];
+
+    // console.log( BG);
+
+    // const { backgroundColor } = dropdownContainer || {};
+    const dropCardStyles = [
+      backgroundColor && { backgroundColor },
+      borderWidth && { borderWidth },
+      borderColor && { borderColor },
+    ];
+
+    console.log(dropCardStyles, "buttonStyle");
+
+    const calculateContainerHeight = (dataLength: number): number => {
+      const baseHeight = 200;
+      const heightPerItem = 30;
+      const minHeight = 200;
+
+      const calculatedHeight = baseHeight + dataLength * heightPerItem;
+      return Math.max(calculatedHeight, minHeight);
     };
-    Animated.timing(animatedRef, config).start();
-    LayoutAnimation.configureNext(ToggleAnimation);
-    setVisible(!visible);
-  };
 
-  const renderSelected = (selected: string) => {
-    if (ListDataLength > 0) {
-      try {
-        if (!selected) {
-          return null;
+    const [visible, setVisible] = useState(false);
+    const [selected, setSelected] = useState<string | number>("");
+    const animatedRef = useRef(new Animated.Value(0)).current;
+
+    const ListDataLength = Listdata.length;
+    const containerHeight = useMemo(
+      () => calculateContainerHeight(ListDataLength),
+      [Listdata]
+    );
+    const ViewDataHeight = containerHeight / 1.5;
+
+    const toggleDropdownAnimation = () => {
+      const config = {
+        duration: 500,
+        toValue: visible ? 0 : 1,
+        useNativeDriver: true,
+      };
+      Animated.timing(animatedRef, config).start();
+      LayoutAnimation.configureNext(ToggleAnimation);
+      setVisible((prevVisible) => !prevVisible);
+    };
+
+    const renderSelected = useMemo(() => {
+      if (ListDataLength > 0) {
+        try {
+          if (!selected) {
+            return "No option selected";
+          }
+          const selectedOption = Listdata?.find(
+            (g) => g.value === selected
+          )?.name;
+          return selectedOption;
+        } catch (error) {
+          console.log(error);
         }
-        let selectedOption = List?.find((g) => g?.value === select)?.["name"];
-        return selectedOption;
-      } catch (error) {
-        return selected;
       }
-    }
-  };
+      return "No Options";
+    }, [ListDataLength, Listdata, selected]);
 
-  const arrowTransform = animatedRef.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "180deg"],
-  });
+    // console.log(renderSelected);
 
-  //   RENDER COMPONENTS & FUNCTIONS
-  const HandleSelection = (value: React.SetStateAction<string>) => {
-    onChange(value);
-    // setSelected(value);
-    toggleDropdownAnimation();
-  };
+    const arrowTransform = animatedRef.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["0deg", "180deg"],
+    });
 
-  const renderDropdown = () => {
-    if (visible) {
-      return (
-        <>
+    const handleSelection = (value: any) => {
+      setSelected(value);
+      onSelect?.(value); // Invoke the onSelect prop with the selected value
+      toggleDropdownAnimation();
+    };
+
+    const MemoizedTouchableOpacity = React.memo(TouchableOpacity);
+    const MemoizedText = React.memo(Text);
+
+    const renderDropdown = useMemo(() => {
+      if (visible) {
+        return (
           <View
-            key={"_"}
-            style={[styles.dropdown, { height: ViewDataHeight * 0.5 }]}
+            key="_"
+            style={[styles.dropdown, { height: ViewDataHeight / 2 }]}
           >
-            <FlatList
-              data={Listdata}
-              renderItem={({
-                item,
-              }: {
-                item: {
-                  name: any;
-                  value: any;
-                };
-              }) => (
-                <TouchableOpacity
-                  key={item?.name}
-                  onPress={() => HandleSelection(item?.value)}
+            <ScrollView showsVerticalScrollIndicator>
+              {Listdata.map((item) => (
+                <MemoizedTouchableOpacity
+                  onPress={() => handleSelection(item?.value)}
+                  key={item?.name + item?.value}
                   style={{
                     flexDirection: "row",
                     height: 50,
                     paddingVertical: 10,
                   }}
+                  testID="dropdown-button" // Verify this line
                 >
-                  <Text>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        color: "black",
-                      }}
-                    >
-                      {item?.name}
-                    </Text>
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
+                  <MemoizedText style={dropdownTextStyle}>
+                    {item?.name}
+                  </MemoizedText>
+                </MemoizedTouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
-        </>
-      );
-    }
-  };
+        );
+      }
+      return null;
+    }, [visible, ViewDataHeight, Listdata, handleSelection]);
 
-  // add onChange
-
-  //   console.log(ListDataLength, Listdata?.length);
-
-  return (
-    <View
-      style={{
-        backgroundColor: "#F4F4F6",
-        flexDirection: "column",
-        borderRadius: 10,
-      }}
-    >
-      <View style={{ padding: 0.5 }}>
-        <TouchableOpacity
-          onPress={toggleDropdownAnimation}
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            height: 55,
-            margin: 2,
-            marginBottom: 3,
-            // backgroundColor: visible ? "#FFFFFF" : "#F4F4F6",
-            marginHorizontal: 2,
-            borderTopStartRadius: 14,
-            borderTopEndRadius: 14,
-            paddingHorizontal: 10,
-          }}
-        >
-          <View>
-            <View style={{ marginHorizontal: 5 }}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: "black",
-                }}
-              >
-                {renderSelected(select) || title}
+    return (
+      <>
+        {title && <Text style={[{ marginVertical: 5 }]}>{title}</Text>}
+        <View>
+          <TouchableOpacity
+            onPress={toggleDropdownAnimation}
+            style={[
+              styles.button,
+              ...buttonStyle,
+              {
+                borderRadius: !visible ? 14 : 0,
+                borderTopStartRadius: 14,
+                borderTopEndRadius: 14,
+              },
+            ]}
+          >
+            <View>
+              <Text style={[styles.buttonText, dropdownTextStyle]}>
+                {renderSelected}
               </Text>
             </View>
-          </View>
-          <View>
-            <Animated.View style={{ transform: [{ rotateZ: arrowTransform }] }}>
-              <Entypo name="chevron-small-down" size={30} color="black" />
-            </Animated.View>
-          </View>
-        </TouchableOpacity>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 2,
-            backgroundColor: "#FFFFFF",
-            marginHorizontal: 2,
-            borderBottomEndRadius: 14,
-            borderBottomStartRadius: 14,
-          }}
-        >
+            <View>
+              <Animated.View
+                style={{ transform: [{ rotateZ: arrowTransform }] }}
+              >
+                <Entypo
+                  name="chevron-small-down"
+                  size={iconStyle?.size}
+                  color={iconStyle?.color}
+                />
+              </Animated.View>
+            </View>
+          </TouchableOpacity>
           {visible && (
-            <View
-              style={{
-                width: "100%",
-                height: ViewDataHeight * 0.5,
-              }}
-            >
-              {renderDropdown()}
-              {ListDataLength === 0 && (
-                <View
-                  style={{
-                    height: 100,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
+            <View style={[styles.dropdownContainer, ...dropCardStyles]}>
+              {ListDataLength === 0 ? (
+                <View style={styles.noDataContainer}>
                   <Text>No data found</Text>
                 </View>
+              ) : (
+                renderDropdown
               )}
             </View>
           )}
         </View>
-      </View>
-    </View>
-  );
-};
+      </>
+    );
+  }
+);
 
-export default DropDown;
+export default Dropdown;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+  },
   button: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    height: 100,
-    width: "100%",
-    borderRadius: 14,
-    paddingHorizontal: 5,
+    justifyContent: "space-between",
+    height: 55,
+    margin: 2,
+    marginBottom: -3,
+    marginHorizontal: 2,
+    paddingHorizontal: 10,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "gray",
+  },
+  buttonText: {
+    fontSize: 14,
+    color: "black",
+  },
+  dropdownContainer: {
+    flexDirection: "column",
+    paddingHorizontal: 10,
+    backgroundColor: "#FFFFFF",
+    marginHorizontal: 2,
+    paddingVertical: 10,
+    borderBottomEndRadius: 14,
+    borderBottomStartRadius: 14,
+    // borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "gray",
   },
   dropdown: {
-    position: "absolute",
-    borderColor: "gray",
     width: "100%",
-    flexDirection: "column",
-    // height: 100,
-    paddingHorizontal: 10,
     borderRadius: 10,
+  },
+  noDataContainer: {
+    height: 100,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

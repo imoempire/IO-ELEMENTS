@@ -1,2 +1,2 @@
 export { default as Button } from "./Buttons";
-export { default as Dropdown } from "./Selector";
+export { default as DropdownSelector } from "./Selector";
