@@ -14,8 +14,8 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState, ReactElement, useCallback } from "react";
-import { lightColors } from "../../utils/colors";
 import renderNode from "../../utils/renderNode";
+import { lightColors } from "../../utils/colors";
 
 interface Props extends TouchableOpacityProps, TouchableNativeFeedbackProps {
   // Title
@@ -41,7 +41,6 @@ interface Props extends TouchableOpacityProps, TouchableNativeFeedbackProps {
   iconRight?: boolean;
   Icon?: ReactElement;
   iconPosition?: "left" | "right" | "top" | "bottom";
-  iconContainerStyle?: StyleProp<ViewStyle>;
 }
 
 const positionStyle = {
@@ -65,7 +64,6 @@ const PrimaryButton = ({
   Icon,
   disabledStyle,
   isDisabled = false,
-  iconContainerStyle,
   children = title,
 }: Props) => {
   let flexDirection =
@@ -115,14 +113,11 @@ const PrimaryButton = ({
         {!isLoading &&
           Icon &&
           renderNode(Icon, Icon, {
-            containerStyle: StyleSheet.flatten([
-              styles.iconContainer,
-              iconContainerStyle,
-            ]),
+            containerStyle: StyleSheet.flatten([styles.iconContainer]),
           })}
 
         {!isLoading &&
-          React.Children.toArray(children).map((child: any, index: any) => (
+          React.Children.toArray(children).map((child, index) => (
             <React.Fragment key={index}>
               {typeof child === "string"
                 ? renderNode(Text, child, {

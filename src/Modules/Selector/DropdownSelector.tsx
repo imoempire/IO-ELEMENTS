@@ -32,7 +32,7 @@ interface Props {
   };
 }
 
-const listData: { name: string; value: string }[] | undefined = [];
+const listData: { name: string; value: string; }[] | undefined = [];
 
 const carddefaultStyle = {
   borderColor: "gray",
@@ -191,7 +191,7 @@ const DropdownSelector: React.FC<Props> = memo(
           </Text>
         ) : (
           <Text style={[{ marginVertical: 5, marginHorizontal: 2 }]}>
-            {"Label"}
+            {"Lable"}
           </Text>
         )}
         <View>
