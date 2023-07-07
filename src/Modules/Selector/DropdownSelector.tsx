@@ -13,9 +13,9 @@ import {
   TextStyle,
 } from "react-native";
 import { ToggleAnimation } from "./Animation";
-import Entypo from "react-native-vector-icons/Entypo"
+import Entypo from "react-native-vector-icons/Entypo";
 
- interface Props {
+interface Props {
   Listdata?: { name: string; value: string }[];
   title?: string;
   // Dropdown
@@ -32,11 +32,7 @@ import Entypo from "react-native-vector-icons/Entypo"
   };
 }
 
-const listData = [
-  { name: "Option 1", value: "option1" },
-  { name: "Option 2", value: "option2" },
-  { name: "Option 3", value: "option3" },
-];
+const listData: { name: string; value: string }[] | undefined = [];
 
 const carddefaultStyle = {
   borderColor: "gray",
@@ -87,8 +83,8 @@ const DropdownSelector: React.FC<Props> = memo(
     ];
 
     const calculateContainerHeight = (dataLength: number): number => {
-      const baseHeight = 200;
-      const heightPerItem = 30;
+      const baseHeight = 340;
+      const heightPerItem = 20;
       const minHeight = 200;
 
       const calculatedHeight = baseHeight + dataLength * heightPerItem;
@@ -141,7 +137,7 @@ const DropdownSelector: React.FC<Props> = memo(
 
     const handleSelection = (value: any) => {
       setSelected(value);
-      onSelect?.(value); // Invoke the onSelect prop with the selected value
+      onSelect?.(value);
       toggleDropdownAnimation();
     };
 
@@ -162,12 +158,20 @@ const DropdownSelector: React.FC<Props> = memo(
                   key={item?.name + item?.value}
                   style={{
                     flexDirection: "row",
-                    height: 50,
-                    paddingVertical: 10,
+                    height: 40,
+                    alignItems: "center",
                   }}
-                  testID="dropdown-button" // Verify this line
+                  testID="dropdown-button"
                 >
-                  <MemoizedText style={dropdownTextStyle}>
+                  <MemoizedText
+                    style={[
+                      dropdownTextStyle,
+                      {
+                        justifyContent: "center",
+                        alignItems: "center",
+                      },
+                    ]}
+                  >
                     {item?.name}
                   </MemoizedText>
                 </MemoizedTouchableOpacity>
@@ -181,7 +185,15 @@ const DropdownSelector: React.FC<Props> = memo(
 
     return (
       <>
-        {title && <Text style={[{ marginVertical: 5 }]}>{title}</Text>}
+        {title ? (
+          <Text style={[{ marginVertical: 5, marginHorizontal: 2 }]}>
+            {title}
+          </Text>
+        ) : (
+          <Text style={[{ marginVertical: 5, marginHorizontal: 2 }]}>
+            {"Label"}
+          </Text>
+        )}
         <View>
           <TouchableOpacity
             onPress={toggleDropdownAnimation}
