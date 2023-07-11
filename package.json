@@ -1,6 +1,6 @@
 {
   "name": "io-elements",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React Native",
   "main": "index.ts",
   "scripts": {
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@types/react": "^18.2.14",
     "@types/react-native": "^0.72.2",
+    "react-native-gesture-handler": "^2.12.0",
     "typescript": "^5.1.6"
   },
   "dependencies": {
