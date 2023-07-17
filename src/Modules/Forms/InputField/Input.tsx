@@ -28,10 +28,10 @@ interface Props {
 
 const Input = ({
   placeholder = "type here",
-  placeholderTextColor = "blue",
+  placeholderTextColor = "#000000",
   InputborderStyle = {
     borderWidth: 2,
-    borderColor: "pink",
+    borderColor: "#000000",
     borderRadius: 10,
   },
   TextInputStyle = {
@@ -41,12 +41,13 @@ const Input = ({
   },
   label = "Select a label",
   labelTextStyle = {
-    fontSize: 30,
-    color: "green",
+    fontSize: 20,
+    color: "#000000",
   },
   Icon,
   onChangeText,
 }: Props) => {
+
   const [inputValue, setInputValue] = React.useState("");
   const handleTextChange = (text: string) => {
     setInputValue(text);
