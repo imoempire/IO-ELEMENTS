@@ -20,10 +20,15 @@
 
 ### ✨ [Demo](https://io-elements.vercel.app/)
 
-## Install
+## Install Using NPM
 
 ```sh
-yarn i io-elements
+npm i io-elements
+```
+## Install Using Yarn
+
+```sh
+yarn add io-elements
 ```
 
 ## Author
