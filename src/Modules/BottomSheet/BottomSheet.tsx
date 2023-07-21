@@ -13,7 +13,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import { PanGestureHandler } from "react-native-gesture-handler";
+import { GestureHandlerRootView, PanGestureHandler } from "react-native-gesture-handler";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 interface Props {
@@ -98,7 +98,7 @@ const BottomSheet = ({
   }
 
   return (
-    <>
+    <GestureHandlerRootView>
       <Pressable
         onPress={enableBackdropDismiss ? onDismiss : undefined}
         style={styles.backDrop}
@@ -137,7 +137,7 @@ const BottomSheet = ({
         </PanGestureHandler>
         <ScrollView style={contentStyles}>{children}</ScrollView>
       </Animated.View>
-    </>
+    </GestureHandlerRootView>
   );
 };
 
