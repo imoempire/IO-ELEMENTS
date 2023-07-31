@@ -21,6 +21,20 @@ interface Props {
   TextInputStyle?: StyleProp<
     Omit<ViewStyle, "borderWidth" | "borderColor" | "borderRadius">
   >;
+  keyboardType?:
+    | "default"
+    | "email-address"
+    | "numeric"
+    | "phone-pad"
+    | "ascii-capable"
+    | "numbers-and-punctuation"
+    | "url"
+    | "number-pad"
+    | "name-phone-pad"
+    | "decimal-pad"
+    | "twitter"
+    | "web-search"
+    | "visible-password";
   placeholderTextColor?: string;
   label?: string;
   labelTextStyle?: StyleProp<TextStyle>;
@@ -30,9 +44,9 @@ interface Props {
 
 const Input = ({
   placeholder = "type here",
-  placeholderTextColor = "#000000",
+  placeholderTextColor = "#A9A9AC",
   InputborderStyle = {
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
   },
@@ -48,6 +62,7 @@ const Input = ({
   },
   Icon,
   onChangeText,
+  keyboardType = "default",
 }: Props) => {
   const [inputValue, setInputValue] = React.useState("");
   const handleTextChange = (text: string) => {
@@ -72,6 +87,7 @@ const Input = ({
             placeholder={placeholder}
             value={inputValue}
             onChangeText={handleTextChange}
+            keyboardType={keyboardType}
           />
           {Icon && <View style={styles.iconContainer}>{Icon}</View>}
         </View>
