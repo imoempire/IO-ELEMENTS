@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useMemo } from "react";
 import {
   Keyboard,
   StyleProp,
@@ -39,6 +39,7 @@ interface Props {
   label?: string;
   labelTextStyle?: StyleProp<TextStyle>;
   Icon?: ReactElement;
+  secureTextEntry?: boolean;
   onChangeText?: (text: string) => void;
 }
 
@@ -63,8 +64,10 @@ const Input = ({
   Icon,
   onChangeText,
   keyboardType = "default",
+  secureTextEntry = false,
 }: Props) => {
   const [inputValue, setInputValue] = React.useState("");
+
   const handleTextChange = (text: string) => {
     setInputValue(text);
     if (onChangeText) {
@@ -88,6 +91,7 @@ const Input = ({
             value={inputValue}
             onChangeText={handleTextChange}
             keyboardType={keyboardType}
+            secureTextEntry={secureTextEntry}
           />
           {Icon && <View style={styles.iconContainer}>{Icon}</View>}
         </View>
@@ -104,7 +108,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   inputContainer: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
