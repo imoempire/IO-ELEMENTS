@@ -1,6 +1,6 @@
 {
   "name": "io-elements",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "React Native",
   "main": "index.ts",
   "scripts": {
@@ -16,7 +16,8 @@
   "license": "ISC",
   "peerDependencies": {
     "react": "^18.0.0",
-    "react-native": "^0.70"
+    "react-native": "^0.70",
+    "react-native-gesture-handler": "^2.12.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
@@ -25,7 +26,5 @@
     "react-native-vector-icons": "^9.2.0",
     "typescript": "^5.1.6"
   },
-  "dependencies": {
-    "react-native-gesture-handler": "^2.12.0"
-  }
+  "dependencies": {}
 }

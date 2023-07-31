@@ -1,10 +1,12 @@
 import React, { ReactElement } from "react";
 import {
+  Keyboard,
   StyleProp,
   StyleSheet,
   Text,
   TextInput,
   TextStyle,
+  TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from "react-native";
@@ -47,7 +49,6 @@ const Input = ({
   Icon,
   onChangeText,
 }: Props) => {
-
   const [inputValue, setInputValue] = React.useState("");
   const handleTextChange = (text: string) => {
     setInputValue(text);
@@ -56,20 +57,26 @@ const Input = ({
     }
   };
 
+  const dismissKeyboard = () => {
+    Keyboard.dismiss();
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={[labelTextStyle, styles.label]}>{label}</Text>
-      <View style={[styles.inputContainer, TextInputStyle, InputborderStyle]}>
-        <TextInput
-          placeholderTextColor={placeholderTextColor}
-          style={styles.input}
-          placeholder={placeholder}
-          value={inputValue}
-          onChangeText={handleTextChange}
-        />
-        {Icon && <View style={styles.iconContainer}>{Icon}</View>}
+    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+      <View>
+        <Text style={[labelTextStyle, styles.label]}>{label}</Text>
+        <View style={[styles.inputContainer, TextInputStyle, InputborderStyle]}>
+          <TextInput
+            placeholderTextColor={placeholderTextColor}
+            style={styles.input}
+            placeholder={placeholder}
+            value={inputValue}
+            onChangeText={handleTextChange}
+          />
+          {Icon && <View style={styles.iconContainer}>{Icon}</View>}
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
