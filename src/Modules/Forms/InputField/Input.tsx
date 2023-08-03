@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useMemo } from "react";
+import React, { Children, ReactElement, useEffect, useMemo } from "react";
 import {
   Keyboard,
   StyleProp,
@@ -42,6 +42,12 @@ interface Props {
   secureTextEntry?: boolean;
   onChangeText?: (text: string) => void;
 }
+
+const DismissKeyboard = (children: any) => {
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>;
+};
 
 const Input = ({
   placeholder = "type here",
