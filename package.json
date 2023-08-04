@@ -1,10 +1,10 @@
 {
   "name": "io-elements",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "React Native",
   "main": "index.ts",
   "scripts": {
-    "build": "echo \"Success: dummy build process\"",
+    "build": "babel src --out-dir lib --extensions .ts,.tsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -20,11 +20,14 @@
     "react-native-gesture-handler": "^2.12.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
     "@types/react": "^18.2.14",
     "@types/react-native": "^0.72.2",
     "@types/react-native-vector-icons": "^6.4.13",
     "react-native-vector-icons": "^9.2.0",
     "typescript": "^5.1.6"
-  },
-  "dependencies": {}
+  }
 }

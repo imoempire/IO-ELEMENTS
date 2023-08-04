@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Keyboard, TouchableWithoutFeedback, View } from "react-native";
 
+// @ts-ignore
 const MyContext = React?.createContext();
 
 const ioElementsProvider = ({ children }: { children: any }) => {
