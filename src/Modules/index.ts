@@ -1,4 +1,4 @@
-export { ioElementsProvider } from "./Provider/Provider";
+export { IoElementsProvider } from "./Provider/Provider";
 
 export { default as Button } from "./Buttons";
 export { default as DropdownSelector } from "./Selector";

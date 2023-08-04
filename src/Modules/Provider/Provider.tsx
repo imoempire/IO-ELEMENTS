@@ -5,7 +5,7 @@ import { Keyboard, TouchableWithoutFeedback, View } from "react-native";
 // @ts-ignore
 const MyContext = React?.createContext();
 
-const ioElementsProvider = ({ children }: { children: any }) => {
+const IoElementsProvider = ({ children }: { children: any }) => {
   const [sharedState, setSharedState] = useState<any>(/* initial state */);
 
   const DismissKeyboard = ({ children }: { children: any }) => (
@@ -21,4 +21,4 @@ const ioElementsProvider = ({ children }: { children: any }) => {
   );
 };
 
-export { ioElementsProvider };
+export { IoElementsProvider };
