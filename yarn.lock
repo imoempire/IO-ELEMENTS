@@ -1301,6 +1301,11 @@ core-js-compat@^3.31.0:
   dependencies:
     browserslist "^4.21.9"
 
+country-list-with-dial-code-and-flag@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/country-list-with-dial-code-and-flag/-/country-list-with-dial-code-and-flag-5.0.2.tgz#e0b439ed384ad429ef2105839fd9481e4253d873"
+  integrity sha512-jlTmTu41KH/D8RO8Mc84zKv+g8uwVOiYIKx0U1D4ils27PR1mGDarilE8FwyqivFXl3IcwyTtaYFbhyQoIssNQ==
+
 csstype@^3.0.2:
   version "3.1.2"
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.2.tgz"

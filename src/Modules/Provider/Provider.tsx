@@ -1,6 +1,12 @@
 // MyContext.js
 import React, { useState } from "react";
-import { Keyboard, TouchableWithoutFeedback, View } from "react-native";
+import {
+  Keyboard,
+  StyleProp,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle,
+} from "react-native";
 
 // @ts-ignore
 const MyContext = React?.createContext();
@@ -11,12 +17,20 @@ const DismissKeyboard = ({ children }: { children: any }) => (
   </TouchableWithoutFeedback>
 );
 
-const IoElementsProvider = ({ children }: { children: any }) => {
+const IoElementsProvider = ({
+  children,
+  style,
+}: {
+  children?: any;
+  style?: StyleProp<ViewStyle>;
+}) => {
   const [sharedState, setSharedState] = useState<any>(/* initial state */);
 
   return (
     <MyContext.Provider value={{ sharedState, setSharedState }}>
-      <DismissKeyboard>{children}</DismissKeyboard>
+      <DismissKeyboard>
+        <View style={style}>{children}</View>
+      </DismissKeyboard>
     </MyContext.Provider>
   );
 };
