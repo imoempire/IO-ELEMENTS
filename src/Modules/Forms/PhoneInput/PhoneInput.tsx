@@ -46,7 +46,7 @@ const PhoneInput = ({
   label = "",
   labelContainerStyle,
   selectedColor = lightColors.primary,
-  InputContainer,
+  InputContainer={},
 }: Props) => {
   let bgColor = color || lightColors.primary;
 

@@ -18,6 +18,7 @@ interface Props {
   codeButtonStyles?: StyleProp<Omit<ViewStyle, "height">>;
   InputStyles?: StyleProp<Omit<ViewStyle, "height">>;
   labelContainerStyle?: StyleProp<ViewStyle>;
+  InputContainer?: StyleProp<ViewStyle>;
   selectedColor?: string;
   color?: string;
 }
@@ -30,6 +31,7 @@ const Phone = ({
   onChange,
   codeButtonStyles,
   color,
+  InputContainer
 }: Props) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>("233");
@@ -66,6 +68,7 @@ const Phone = ({
         selected={selected}
         flag={flag}
         onChange={onChange}
+        InputContainer={InputContainer}
       />
       <CountryModals
         visible={showModal}

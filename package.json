@@ -1,6 +1,6 @@
 {
   "name": "io-elements",
-  "version": "0.6.2",
+  "version": "0.6.21",
   "description": "React Native",
   "main": "index.ts",
   "scripts": {
