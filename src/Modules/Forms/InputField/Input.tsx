@@ -41,6 +41,7 @@ interface Props {
   Icon?: ReactElement;
   secureTextEntry?: boolean;
   onChangeText?: (text: string) => void;
+  InputContainer?: StyleProp<ViewStyle>
 }
 
 const DismissKeyboard = (children: any) => {
@@ -62,7 +63,7 @@ const Input = ({
     height: 50,
     width: "100%",
   },
-  label = "Select a label",
+  label = "",
   labelTextStyle = {
     fontSize: 20,
     color: "#000000",
@@ -71,6 +72,7 @@ const Input = ({
   onChangeText,
   keyboardType = "default",
   secureTextEntry = false,
+  InputContainer={}
 }: Props) => {
   const [inputValue, setInputValue] = React.useState("");
 
@@ -87,8 +89,10 @@ const Input = ({
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <View>
-        <Text style={[labelTextStyle, styles.label]}>{label}</Text>
+      <View style={InputContainer}>
+        {label !== "" && (
+          <Text style={[labelTextStyle, styles.label]}>{label}</Text>
+        )}
         <View style={[styles.inputContainer, TextInputStyle, InputborderStyle]}>
           <TextInput
             placeholderTextColor={placeholderTextColor}

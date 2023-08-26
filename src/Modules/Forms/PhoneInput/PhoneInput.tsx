@@ -23,20 +23,18 @@ interface Props {
   label?: string;
   //   Styles
   height?: number;
-  // width?: string | number;
   color?: string;
   codeButtonStyles?: StyleProp<Omit<ViewStyle, "height">>;
   InputStyles?: StyleProp<Omit<ViewStyle, "height">>;
   labelContainerStyle?: StyleProp<ViewStyle>;
   selectedColor?: string;
+  InputContainer?: StyleProp<ViewStyle>;
 }
 
 const PhoneInput = ({
   error = "Please provide your phone number",
   isError = false,
-  onChange,
   toggleMenu,
-  closeMenu,
   selected,
   flag,
   showFlags = true,
@@ -45,9 +43,10 @@ const PhoneInput = ({
   height = 45,
   codeButtonStyles,
   InputStyles,
-  label = "Phone Number",
+  label = "",
   labelContainerStyle,
   selectedColor = lightColors.primary,
+  InputContainer,
 }: Props) => {
   let bgColor = color || lightColors.primary;
 
@@ -55,7 +54,6 @@ const PhoneInput = ({
     borderColor: !isError ? lightColors.primary : lightColors.error,
     borderWidth: 2,
     borderRadius: 10,
-    // width: "100%",
   };
 
   const defaultCodeButtonStyle = {
@@ -75,10 +73,12 @@ const PhoneInput = ({
   };
 
   return (
-    <View style={styles.container}>
-      <View style={labelContainerStyle}>
-        <Text style={{ fontSize: 16, lineHeight: 24 }}>{label}</Text>
-      </View>
+    <View style={[styles.container, InputContainer]}>
+      {label !== "" && (
+        <View style={labelContainerStyle}>
+          <Text style={{ fontSize: 16, lineHeight: 24 }}>{label}</Text>
+        </View>
+      )}
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <TouchableOpacity
           onPress={toggleMenu}
@@ -151,7 +151,6 @@ export default PhoneInput;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
     width: "100%",
   },
 });
