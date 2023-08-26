@@ -42,7 +42,7 @@ interface Props {
   secureTextEntry?: boolean;
   onChangeText?: (text: string) => void;
   InputContainer?: StyleProp<ViewStyle>;
-  TextInputFontSize?: undefined | string;
+  TextInputFontSize?: undefined | any;
 }
 
 const DismissKeyboard = (children: any) => {
