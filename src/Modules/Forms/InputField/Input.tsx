@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   input: {
-    fontSize: 20,
     width: "100%",
     height: "100%",
   },
