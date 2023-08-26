@@ -29,6 +29,7 @@ interface Props {
   labelContainerStyle?: StyleProp<ViewStyle>;
   selectedColor?: string;
   InputContainer?: StyleProp<ViewStyle>;
+  codeColor?: string;
 }
 
 const PhoneInput = ({
@@ -46,10 +47,11 @@ const PhoneInput = ({
   label = "",
   labelContainerStyle,
   selectedColor = lightColors.primary,
-  InputContainer={},
+  InputContainer = {},
+  codeColor,
 }: Props) => {
   let bgColor = color || lightColors.primary;
-
+  let codeTextColor = codeColor || lightColors.white;
   const defaultInputStyles = {
     borderColor: !isError ? lightColors.primary : lightColors.error,
     borderWidth: 2,
@@ -105,16 +107,12 @@ const PhoneInput = ({
           <Text
             style={{
               fontSize: 16,
-              color: lightColors.white,
+              color: codeTextColor,
             }}
           >
             {selected}
           </Text>
-          <MaterialIcons
-            name="expand-more"
-            size={24}
-            color={lightColors.white}
-          />
+          <MaterialIcons name="expand-more" size={24} color={codeTextColor} />
         </TouchableOpacity>
         <TextInput
           style={[

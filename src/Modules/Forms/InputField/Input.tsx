@@ -41,7 +41,8 @@ interface Props {
   Icon?: ReactElement;
   secureTextEntry?: boolean;
   onChangeText?: (text: string) => void;
-  InputContainer?: StyleProp<ViewStyle>
+  InputContainer?: StyleProp<ViewStyle>;
+  TextInputFontSize?: undefined | string;
 }
 
 const DismissKeyboard = (children: any) => {
@@ -72,7 +73,8 @@ const Input = ({
   onChangeText,
   keyboardType = "default",
   secureTextEntry = false,
-  InputContainer={}
+  InputContainer = {},
+  TextInputFontSize = "10",
 }: Props) => {
   const [inputValue, setInputValue] = React.useState("");
 
@@ -96,7 +98,7 @@ const Input = ({
         <View style={[styles.inputContainer, TextInputStyle, InputborderStyle]}>
           <TextInput
             placeholderTextColor={placeholderTextColor}
-            style={styles.input}
+            style={[styles.input, { fontSize: TextInputFontSize }]}
             placeholder={placeholder}
             value={inputValue}
             onChangeText={handleTextChange}

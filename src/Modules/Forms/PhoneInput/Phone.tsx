@@ -21,6 +21,7 @@ interface Props {
   InputContainer?: StyleProp<ViewStyle>;
   selectedColor?: string;
   color?: string;
+  codeColor?: string
 }
 
 const Phone = ({
@@ -31,7 +32,8 @@ const Phone = ({
   onChange,
   codeButtonStyles,
   color,
-  InputContainer
+  InputContainer,
+  codeColor
 }: Props) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>("233");
@@ -69,6 +71,7 @@ const Phone = ({
         flag={flag}
         onChange={onChange}
         InputContainer={InputContainer}
+        codeColor={codeColor}
       />
       <CountryModals
         visible={showModal}
