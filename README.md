@@ -38,7 +38,7 @@ yarn add io-elements
 * Website: empire-world.netlify.app
 * Twitter: [@isaacobengimo](https://twitter.com/isaacobengimo)
 * Github: [@imoempire](https://github.com/imoempire)
-* LinkedIn: [@linkedin.com\/in\/isaac-obeng-9980a9217](https://linkedin.com/in/linkedin.com\/in\/isaac-obeng-9980a9217)
+* LinkedIn: [@linkedin.com\/in\/isaac-obeng-9980a9217](www.linkedin.com/in/isaac-obeng-9980a9217)
 
 ## 🤝 Contributing
 
