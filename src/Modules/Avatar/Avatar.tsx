@@ -60,7 +60,7 @@ const Avatar = ({
   raduis = "md",
   borderSize = "sm",
   textStyle,
-  text
+  text= "Avatar",
 }: Props) => {
   const { Components, Context } = Colors;
 
