@@ -60,6 +60,7 @@ const Avatar = ({
   raduis = "md",
   borderSize = "sm",
   textStyle,
+  text
 }: Props) => {
   const { Components, Context } = Colors;
 
@@ -137,7 +138,7 @@ const Avatar = ({
             textStyle,
           ]}
         >
-          Avatar
+          {text}
         </Text>
       )}
     </View>
