@@ -7,4 +7,4 @@ export { default as Divider } from "./Divider";
 export { default as DropdownSelector } from "./Selector";
 export { default as Input } from "./Forms/InputField";
 export { default as Modal } from "./Modal";
-export { default as PhoneInput } from "./Forms/PhoneInput";
+export { default as PhoneInput } from "./Forms/PhoneInput"
